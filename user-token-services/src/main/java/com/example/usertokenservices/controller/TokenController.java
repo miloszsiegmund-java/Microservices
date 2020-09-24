@@ -2,6 +2,7 @@ package com.example.usertokenservices.controller;
 
 import com.example.usertokenservices.domain.Token;
 import com.example.usertokenservices.service.TokenService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,16 +15,20 @@ public class TokenController {
 
     private final TokenService tokenService;
 
+    @ApiOperation(value = "Save token")
     @PostMapping
     public Token saveToken(@RequestBody Token token) {
         return tokenService.save(token);
     }
 
+    @ApiOperation(value = "Get all token from database")
     @GetMapping
     public List<Token> getAll(){
         return tokenService.findAll();
     }
 
+
+    @ApiOperation(value = "Validate token")
     @GetMapping("/{token}")
     public void isTokenValid(@PathVariable String token){
         tokenService.isTokenValid(token);

@@ -3,6 +3,8 @@ package com.example.loginapiservices.controller;
 import com.example.loginapiservices.payload.request.LoginRequest;
 import com.example.loginapiservices.security.JwtUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,6 +35,8 @@ public class AuthController {
     private static final String TOKEN = "token";
     private static final String URL = "http://localhost:9090/api/token";
 
+    @ApiOperation(value = "Authentication user by username and password")
+    @ApiResponse(code = 401 , message = "Unauthorized")
     @PostMapping("/signin")
     public void authenticateUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) throws IOException {
 
