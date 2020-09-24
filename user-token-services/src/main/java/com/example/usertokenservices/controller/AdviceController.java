@@ -13,12 +13,15 @@ import java.util.Map;
 @ControllerAdvice
 public class AdviceController {
 
+    private static final String MESSAGE = "message";
+    private static final String MESSAGE_INFO = "Token not valid";
+
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public Map<String, String> handleEntityNotFoundException(EntityNotFoundException e) {
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Token not valid");
+        response.put(MESSAGE, MESSAGE_INFO);
         return response;
     }
 }
