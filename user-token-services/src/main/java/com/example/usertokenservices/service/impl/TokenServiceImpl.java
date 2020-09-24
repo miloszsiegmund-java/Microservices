@@ -6,6 +6,7 @@ import com.example.usertokenservices.service.TokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -20,21 +21,24 @@ public class TokenServiceImpl implements TokenService {
 
     private final TokenRepository tokenRepository;
 
+    @Value("${app.jwtSecret}")
+    private String jwtSecret;
+
     @Override
     public Token save(Token token) {
         Claims claims = Jwts.parser()
-                .setSigningKey("test1111")
+                .setSigningKey(jwtSecret)
                 .parseClaimsJws(token.getToken())
                 .getBody();
         String email = claims.getSubject();
-        Optional<Token> optionalToken = tokenRepository.findByEmail(email);
+        Optional<Token> optionalToken = tokenRepository.findByUsername(email);
         return optionalToken.map(t -> {
             t.setValidationDate(claims.getExpiration());
-            t.setEmail(claims.getSubject());
+            t.setUsername(claims.getSubject());
             return tokenRepository.save(t);
         }).orElseGet(() -> {
             token.setValidationDate(claims.getExpiration());
-            token.setEmail(claims.getSubject());
+            token.setUsername(claims.getSubject());
             return tokenRepository.save(token);
         });
     }

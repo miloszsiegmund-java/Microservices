@@ -25,6 +25,6 @@ public class Token {
     private Date validationDate;
 
     @Column(unique = true)
-    private String email;
+    private String username;
 
 }

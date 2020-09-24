@@ -20,7 +20,6 @@ public class UserMapperImpl implements UserMapper {
                 .roles(user.getRoles().stream()
                         .map(Role::getName)
                         .collect(Collectors.toSet()))
-                .version(user.getVersion())
                 .build();
     }
 

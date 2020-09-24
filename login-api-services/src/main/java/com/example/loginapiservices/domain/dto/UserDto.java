@@ -21,7 +21,5 @@ public class UserDto {
 
     private String password;
 
-    private Long version;
-
     private Set<String> roles;
 }
