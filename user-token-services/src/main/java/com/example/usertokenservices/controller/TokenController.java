@@ -1,9 +1,12 @@
 package com.example.usertokenservices.controller;
 
 import com.example.usertokenservices.domain.Token;
+import com.example.usertokenservices.response.ApiResponse;
 import com.example.usertokenservices.service.TokenService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +17,8 @@ import java.util.List;
 public class TokenController {
 
     private final TokenService tokenService;
+
+    private static final String TOKEN_VALID = "Token is valid";
 
     @ApiOperation(value = "Save token")
     @PostMapping
@@ -30,7 +35,9 @@ public class TokenController {
 
     @ApiOperation(value = "Validate token")
     @GetMapping("/{token}")
-    public void isTokenValid(@PathVariable String token){
+    public ResponseEntity<?> isTokenValid(@PathVariable String token){
         tokenService.isTokenValid(token);
+        return new ResponseEntity<>(new ApiResponse(true, TOKEN_VALID),
+                HttpStatus.OK);
     }
 }
