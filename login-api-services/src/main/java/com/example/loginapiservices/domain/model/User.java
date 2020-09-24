@@ -24,10 +24,7 @@ public class User {
     private String email;
 
     private String password;
-
-    @Version
-    private Long version;
-
+    
     @ManyToMany
     private Set<Role> roles;
 }
