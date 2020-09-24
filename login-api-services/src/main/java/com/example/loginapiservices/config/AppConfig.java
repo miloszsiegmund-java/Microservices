@@ -25,14 +25,14 @@ public class AppConfig {
             }
 
             userService.save(User.builder()
-                    .username("test22")
-                    .password("123")
+                    .username("fake_user")
+                    .password("1234")
                     .build());
 
 
             userService.save(User.builder()
-                    .username("test34")
-                    .password("1234")
+                    .username("fake_user2")
+                    .password("5678")
                     .build());
         };
     }
